@@ -1,0 +1,49 @@
+class Solution {
+public:
+    
+
+    vector<vector<int>> merge(vector<vector<int>>& in) {
+
+      
+        vector<vector<int>> merged;
+        vector<int> prev = in[0];
+
+        for (int i = 1; i < in.size(); ++i) {
+            vector<int> interval = in[i];
+            if (interval[0] <= prev[1]) {
+                prev[1] = max(prev[1], interval[1]);
+            } 
+            else {
+                merged.push_back(prev);
+                prev = interval;
+            }
+        }
+
+        merged.push_back(prev);
+        return merged;        
+    
+}
+    int countDays(int days, vector<vector<int>>& m) {
+         sort(m.begin(), m.end(), [](const vector<int>& a, const vector<int>& b) {
+            return a[0] < b[0];
+        });
+        vector<vector<int>>ans=merge(m);
+        int final=0;
+        //  sort(ans.begin(), ans.end(), [](const vector<int>& a, const vector<int>& b) {
+        //     return a[0] < b[0];
+        // });
+
+        
+        if(ans[0][0]!=1)
+            final+=(ans[0][0]-1);
+        for(int i=0;i<ans.size()-1;i++){
+            int r=ans[i][1];
+            int k=ans[i+1][0];
+            // if((k-r-1)>=0)
+            final+=(k-r-1);
+        }    
+        
+        final+=days-ans[ans.size()-1][1];
+        return final;
+    }
+};

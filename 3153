@@ -1,0 +1,52 @@
+class Solution {
+public:
+   long long sumDigitDifferences(vector<int>& nums) {
+        int n = nums.size();
+        long long sum = 0;
+        
+       int r=nums[0];
+       int c=0;
+       while(r!=0){
+           r=r/10;
+           c++;
+           
+       }
+       // cout<<c<<endl;
+       
+      vector<vector<int>>v(c,vector<int>(nums.size(),0));
+       for(int i=0;i<nums.size();i++){
+           int a=nums[i];
+           int k=0;
+           while(a>0){
+               v[k++][i]=a%10;
+               a=a/10;
+               
+           }
+       }
+       long long ans=0;
+       
+       for(auto i:v){
+           unordered_map<int,int>mp;
+           for(int j=0;j<i.size();j++){
+               mp[i[j]]++;
+           }
+           
+           // for(auto i:mp)
+           //     cout<<i.first<<" "<<i.second<<endl;
+           
+           int e=n-1;
+           for(auto j:i){
+               if(mp[j]>0)
+               mp[j]--;
+               ans+=(e-mp[j]);
+               e--;
+           }
+
+           
+       }
+       return ans;
+           
+           
+      
+   }
+};

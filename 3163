@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string compressedString(string word) {
+        char c='*';
+        int cnt=0;
+        vector<pair<int ,char>>v;
+        
+        for(int i=0;i<word.size();i++){
+            if(word[i]==c)
+                cnt++;
+            else{
+                if(cnt>0)
+                v.push_back({cnt,c});
+                c=word[i];
+                cnt=1;
+            }
+        }
+        if(cnt>0)
+            v.push_back({cnt,c});
+        string ans="";
+        
+        for(auto i:v){
+            int r=i.first/9;
+            int rem=i.first%9;
+            for(int j=0;j<r;j++){
+                ans+="9";
+                ans+=i.second;
+            }
+            if(rem>0){
+            ans+=rem+'0';
+            ans+=i.second;
+            }
+        }
+        return ans;
+    }
+};

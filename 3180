@@ -1,0 +1,74 @@
+// class Solution {
+// public:
+    
+//     int find(int i,int sum,vector<int>&r,vector<int>&dp){
+//         if(i==r.size())
+//             return 0;
+        
+//         if(dp[i]!=-1)
+//             return dp[i];
+        
+//         int a=0;
+//         if(sum<r[i]){
+//             a=r[i]+find(i+1,sum+r[i],r,dp);
+//         }
+//             int b=find(i+1,sum,r,dp);
+            
+//             return max(a,b);
+       
+//     }
+//     int maxTotalReward(vector<int>& r) {
+//         sort(r.begin(),r.end());
+//         int sum=0;
+
+//         vector<int>dp(r.size(),-1);
+//         int ans=find(0,sum,r,dp);
+        
+//         return ans;
+        
+//     }
+       
+// };
+
+
+class Solution {
+public:
+    
+    int find(int i,int sum,vector<int>&r,vector<vector<int>>&dp){
+        if(i==r.size())
+            return 0;
+        
+        if(dp[i][sum]!=-1)
+            return dp[i][sum];
+        
+        int a=0;
+        if(sum<r[i]){
+            a=r[i]+find(i+1,sum+r[i],r,dp);
+        }
+            int b=find(i+1,sum,r,dp);
+            
+            return dp[i][sum] =max(a,b);
+       
+    }
+    int maxTotalReward(vector<int>& r) {
+        sort(r.begin(),r.end());
+        int sum=0;
+
+        unordered_set<int>s;
+        for(int  i=0;i<r.size();i++)
+        s.insert(r[i]);
+
+        vector<int>ans;
+        for(auto i:s){
+            ans.push_back(i);
+        }
+        sort(ans.begin(),ans.end());
+        vector<vector<int>>dp(ans.size(),vector<int>(4000,-1));
+
+        int ans1=find(0,0,ans,dp);
+        
+        return ans1;
+        
+    }
+       
+};

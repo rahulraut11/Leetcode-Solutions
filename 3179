@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int valueAfterKSeconds(int n, int k) {
+        vector<int>v(n,1);
+        vector<vector<int>>ans;
+        ans.push_back(v);
+        
+        if(n==1){
+            return 1;
+        }
+        
+        for(int j=0;j<k;j++){
+            vector<int>v1=ans[0];
+            ans.pop_back();
+            vector<int>v2(v1.size(),v1[0]);
+            int sum=0;
+            for(int i=1;i<v1.size();i++){
+                v2[i]=(v1[i]+v2[i-1])%1000000007;
+            }
+            ans.push_back(v2);
+        }
+        
+        vector<int>f=ans[0];
+        return f[f.size()-1];
+            
+        }
+    
+};

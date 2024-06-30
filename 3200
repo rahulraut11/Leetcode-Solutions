@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxHeightOfTriangle(int red, int blue) {
+        int mn=min(red,blue);
+        int mx=max(red,blue);
+        int c=0;
+        
+        int i=1;
+        int a=0;
+        int b=0;
+        
+        while(1){
+            if(i%2==1)
+            a+=i;
+            
+            else b+=i;
+            
+            c++;
+            if(a>=b){
+                if(mx<a || mn<b)
+                    break;
+            }
+            else{
+                if(mx<b || mn<a)
+                    break;
+            }
+            i++;
+            
+        }
+        return c-1;
+    }
+};
