@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        for(int i=0;i<nums.size();i++){
+            nums[i]+=10000;
+        }
+        int mx=*max_element(nums.begin(),nums.end());
+        vector<int> v;
+        mx++;
+        vector<int> hsh(mx,0);
+        for(int i=0;i<nums.size();i++){
+            hsh[nums[i]]++;
+        }
+        priority_queue<pair<int,int>> p;
+
+        for(int i=0;i<hsh.size();i++){
+            if(hsh[i]>0)
+            p.push({hsh[i],i});
+        }
+        for(int i=0;i<k;i++){
+            pair<int,int> m=p.top();
+            p.pop();
+            v.push_back(m.second-10000);
+        }
+return v;
+        
+    }
+};

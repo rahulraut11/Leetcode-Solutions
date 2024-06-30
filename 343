@@ -1,0 +1,21 @@
+#define ll long long
+class Solution {
+public:
+    ll dp[60];
+    int integerBreak(int n) {
+        memset(dp,-1,sizeof(dp));
+        dp[2]=1;
+        dp[3]=2;
+
+        for(ll i=4;i<=n;i++){
+            for(ll j = i-1;j>=2;j--){
+                ll temp1 = max(j,dp[j]);
+                ll temp2 = max(i-j,dp[i-j]);
+                dp[i] = max(dp[i],(temp1*temp2));
+            }
+        }
+
+        return dp[n];
+
+    }
+};

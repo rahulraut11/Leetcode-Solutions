@@ -1,0 +1,30 @@
+class Solution {
+public:
+    
+int maxPoints(vector<vector<int>>& points) {
+    if (points.size() <= 1) {
+        return points.size();
+    }
+
+    int maxPointsOnLine = 2;  // Minimum is 2 points on the same line
+
+    for (int i = 0; i < points.size(); i++) {
+        unordered_map<double, int> slopeCount;
+
+        for (int j = 0; j < points.size(); j++) {
+            if (i != j) {
+                int x1 = points[i][0];
+                int y1 = points[i][1];
+                int x2 = points[j][0];
+                int y2 = points[j][1];
+
+                double slope = (x2 - x1 == 0) ? numeric_limits<double>::infinity() : (double)(y2 - y1) / (x2 - x1);
+                slopeCount[slope]++;
+                maxPointsOnLine = max(maxPointsOnLine, slopeCount[slope]+1);
+            }
+        }
+    }
+
+    return maxPointsOnLine;
+}
+};

@@ -1,0 +1,75 @@
+// class MedianFinder {
+// public:
+
+//  vector<int>v;
+//     MedianFinder() {
+       
+//     }
+    
+//     void addNum(int num) {
+//         if(v[0]>num)
+//         v.insert(v.begin(),num);
+
+//         else if(v[v.size()-1]<num)
+//         v.push_back(num);
+//         else{
+
+//         for(int i=0;i<v.size()-1;i++){
+//             if(v[i]<=num && num<=v[i+1])
+//                 v.insert(v.begin()+1+i,num);
+//                     }
+//         }
+//         return;
+//     }
+    
+//     double findMedian() {
+//         int n=v.size();
+//         if(n%2==1){
+//             return v[n/2];
+//         }
+//         else{
+//             double t=v[n/2]+v[(n/2)-1];
+//             return t/2.00000;
+//         }
+       
+//     }
+// };
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
+
+
+ class MedianFinder {
+public:
+    vector<int> v;
+
+    MedianFinder() {
+        // Initial constructor, no need to initialize the vector explicitly.
+    }
+    
+    void addNum(int num) {
+        // Handle the case when the vector is empty.
+        if (v.empty()) {
+            v.push_back(num);
+            return;
+        }
+
+        // Inserting number at the correct position to maintain the sorted order
+        auto it = lower_bound(v.begin(), v.end(), num);
+        v.insert(it, num);
+    }
+    
+    double findMedian() {
+        int n = v.size();
+        if (n % 2 == 1) {
+            return v[n / 2];
+        } else {
+            double t = v[n / 2] + v[(n / 2) - 1];
+            return t / 2.0;
+        }
+    }
+};

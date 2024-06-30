@@ -1,0 +1,30 @@
+class Solution {
+public:
+int f(int ind,vector<int>&v,vector<int>&dp){
+    int n=v.size();
+    if(ind>n-1)
+    return 0;
+if(dp[ind]!=-1)
+return dp[ind];
+    int take=f(ind+2,v,dp)+v[ind];
+    int notake=f(ind+1,v,dp);
+    return dp[ind]=max(take,notake);
+}
+    int deleteAndEarn(vector<int>& nums) {
+
+    int mx=*max_element(nums.begin(),nums.end());
+    vector<int>hsh(mx+1,0);
+
+    for(int i=0;i<nums.size();i++){
+        hsh[nums[i]]++;
+    }
+    vector<int>v;
+    for(int i=0;i<mx+1;i++){
+        v.push_back(i*hsh[i]);
+    }
+      
+        vector<int>dp(*max_element(v.begin(),v.end())+1,-1);
+        int ans=f(0,v,dp);
+        return ans;
+    }
+};

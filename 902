@@ -1,0 +1,54 @@
+class Solution {
+public:
+
+const int MOD = 1000000007;
+
+int power(int b, int e) {
+    int r = 1;
+    b = b % MOD;
+
+    while (e > 0) {
+        if (e % 2 == 1) {
+            r = (r * b) % MOD;
+        }
+        b = (b *1LL* b) % MOD;
+        e /= 2;
+    }
+
+    return r;
+}
+
+bool digfound(int num, vector<string>& digits) {
+    string p = to_string(num);
+    for (int j = 0; j < p.size(); j++) {
+        int e = p[j] - '0';
+        string r = to_string(e);
+        if (!binary_search(digits.begin(), digits.end(), r))
+            return false;
+    }
+    return true;
+}
+
+int atMostNGivenDigitSet(vector<string>& digits, int n) {
+    int dig = digits.size();
+    int n1 = to_string(n).size();
+    long long r = power(dig, n1 - 1)%MOD;
+
+   long long ans = 0;
+    for (int i = 1; i < n1; i++)
+        ans += power(dig, i)%MOD;
+
+    string numStr = to_string(n);
+    for (int i = 0; i < numStr.size(); i++) {
+        int d = numStr[i] - '0';
+        int cnt = count_if(digits.begin(), digits.end(), [d](string& s) { return stoi(s) < d; });
+        ans += cnt * power(dig, numStr.size() - i - 1);
+        if (find(digits.begin(), digits.end(), to_string(d)) == digits.end())
+            break;
+        if (i == numStr.size() - 1)
+            ans++;
+    }
+    return ans%MOD;
+}
+
+};

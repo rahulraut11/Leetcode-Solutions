@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+         int r=s1.size();
+        vector<int>ans;
+
+if(s2.size()<s1.size())
+return false;
+vector<int>a(26,0),b(26,0);
+for(int i=0;i<s1.size();i++){
+    a[s1[i]-'a']++;
+}
+for(int i=0;i<s1.size();i++){
+    b[s2[i]-'a']++;
+}
+
+int r1=0;
+        for(int i=0;i<26;i++){
+            if(a[i]==b[i])
+            r1++;
+        }
+        if(r1==26)
+       return true;
+
+      for(int i=s1.size();i<s2.size();i++){
+        b[s2[i-s1.size()]-'a']--;
+        b[s2[i]-'a']++;
+        int r=0;
+        for(int i=0;i<26;i++){
+            if(a[i]==b[i])
+            r++;
+        }
+        if(r==26){
+           return true;
+
+        }
+
+
+
+ }  
+      return false;
+    }
+};

@@ -1,0 +1,40 @@
+
+
+class Solution {
+public:
+
+int f(int ind, vector<int>& v, vector<vector<int>>& dp, int sum) {
+    if (ind == 0) {
+        if (sum % v[ind] == 0) {
+            return sum / v[ind];
+        } else {
+            return INT_MAX;  // Return a large value for invalid cases
+        }
+    }
+
+    if (dp[ind][sum] != -1)
+        return dp[ind][sum];
+
+    int notake = f(ind - 1, v, dp, sum);
+    int take = INT_MAX;
+
+    if (sum - v[ind] >= 0)
+        take = f(ind, v, dp, sum - v[ind]) + 1;
+
+    return dp[ind][sum] = min(take, notake);
+}
+
+int numSquares(int n) {
+    vector<int> v;
+
+    for (int i = 1; i * i <= n; i++) {
+        v.push_back(i * i);
+    }
+    int m = v.size();
+    vector<vector<int>>dp(m, vector<int>(n+1,-1));
+
+    int ans = f(v.size() - 1, v, dp, n);
+
+    return ans == INT_MAX ? -1 : ans;
+}
+};

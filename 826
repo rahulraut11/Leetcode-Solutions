@@ -1,0 +1,46 @@
+class Solution {
+public:
+static bool comp(pair<int,int>&a,pair<int,int>&b){
+    if(a.first!=b.first)
+     return a.first<b.first;
+
+     return a.second>b.second;
+}
+    int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker) {
+        vector<pair<int,int>>mp;
+
+        for(int i=0;i<difficulty.size();i++){
+            mp.push_back({difficulty[i],profit[i]});
+        }
+        sort(mp.begin(),mp.end(),comp);
+        vector<int>sort_diff,profit1;
+        for(auto i:mp){
+            sort_diff.push_back(i.first);
+            profit1.push_back(i.second);
+        }
+
+
+        int mx=-1;
+        for(int i=0;i<profit1.size();i++){
+            mx=max(mx,profit1[i]);
+            profit1[i]=mx;
+        }
+        int sum=0;
+
+        for(int i=0;i<worker.size();i++){
+            int r=worker[i];
+            if(r<sort_diff[0])
+            continue;
+            else if(r>=sort_diff[sort_diff.size()-1]){
+                 sum+=profit1[profit1.size()-1];
+            }
+            else{
+                int ind=upper_bound(sort_diff.begin(),sort_diff.end(),r)-sort_diff.begin();
+                ind--;
+                sum+=profit1[ind];
+            }
+        }
+        return sum;
+
+    }
+};

@@ -1,0 +1,44 @@
+class Solution {
+public:
+bool isprime(int n){
+    for(int i=2;i<=pow(n,0.5);i++){
+        if(n%i==0)
+        return false;
+    }
+    return true;
+}
+int f(int i,vector<int>dp){
+    if(isprime(i)){
+        return dp[i]=i;
+    }
+    if(i==1)
+    return dp[1]=0;
+    if(i==2)
+    return dp[2]=2;
+
+    if(dp[i]!=-1)
+    return dp[i];
+    
+    int mn=1e8;
+    for(int j=2;j<i;j++){
+        if(i%j==0){
+            int ans=i/j;
+            ans+=f(j,dp);
+            mn=min({ans,mn});
+        }
+    }
+    return dp[i]=mn;
+}
+
+
+    int minSteps(int n) {
+        vector<int>dp(n+1,-1);
+        if(n==1)
+        return 0;
+        if(isprime(n))
+        return n;
+        return f(n,dp);
+
+     
+    }
+};

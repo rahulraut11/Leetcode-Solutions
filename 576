@@ -1,0 +1,34 @@
+class Solution {
+public:
+int f(int n, int m, int N, int i, int j, vector<vector<vector<int>>>& dp) {
+    if (i >= n || j >= m || i < 0 || j < 0)
+        return 1;
+        if(N == 0)
+        return 0;
+    if (dp[i][j][N] != -1)
+        return dp[i][j][N];
+
+    int modulo = 1000000007;
+    long long result =0;
+    int dr[] = {-1,0,1,0};
+    int dc[] = {0,1,0,-1};
+    for(int k =0;k<4;k++){
+        int r = i+dr[k];
+        int c = j+dc[k];
+        result+= f(n,m,N-1,r,c,dp);
+        result %= modulo;
+    }
+    // long long result = f(n, m, N - 1, i - 1, j, dp) % 1000000007;
+    //            result+= f(n, m, N - 1, i + 1, j, dp) % 1000000007;
+    //            result += f(n, m, N - 1, i, j + 1, dp) % 1000000007;
+    //            result +=    f(n, m, N - 1, i, j - 1, dp) % 1000000007;
+
+    return dp[i][j][N] = result;
+}
+
+int findPaths(int m, int n, int max, int i, int j) {
+    vector<vector<vector<int>>> dp(m, vector<vector<int>>(n, vector<int>(max + 1, -1)));
+    int ans = f(m, n, max, i, j, dp);
+    return ans % 1000000007;
+}
+};

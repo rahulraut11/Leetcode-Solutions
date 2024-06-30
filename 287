@@ -1,0 +1,75 @@
+class Solution {
+public:
+  int findDuplicate(vector<int>& nums) {
+        int xorSum = 0;
+        for(int num : nums) {
+            xorSum ^= num;
+        }
+
+        int n = nums.size();
+        for(int i = 1; i <= n; i++) {
+            xorSum ^= i;
+        }
+
+        int diff = 0;
+        for(int i = 0; i < n; i++) {
+            diff += i + 1 - nums[i];
+        }
+
+        int ans = 0;
+        for(int i = 0; i < n; i++) {
+            if(nums[abs(nums[i]) - 1] < 0) {
+                ans = abs(nums[i]);
+                break;
+            }
+            nums[abs(nums[i]) - 1] *= -1;
+        }
+
+        return ans;
+    }
+    // int findDuplicate(vector<int>& nums) {
+    //   int a=nums[0];
+    //     int n=nums.size();
+
+    //     for(int i=1;i<nums.size();i++){
+    //         a=a^nums[i];
+    //     }
+    //     for(int i=1;i<=n;i++){
+    //         a=a^i;
+    //     }
+
+    //     int sum=0,sum2=0;
+    //     int xorans=a;
+    //     for(int i=0;i<n;i++){
+    //         sum+=nums[i];
+    //         sum2+=i+1;
+    //     }
+    //     // cout<<xorans;
+
+    //     int ans1=0;
+    //     int ans2=0;
+    //     int fin=0;
+    //     int diff=abs(sum2-sum);
+    //         for(int i=1;i<n;i++){
+    //             if( ((i+diff)<=n) && (((i+diff)^i)==xorans)  ){
+                    
+    //                     ans1=i;
+    //                     ans2=i+diff;
+    //                     vector<int>::iterator it,it1;
+    //                  it = find(nums.begin(),nums.end(), ans1);
+    //                it1= find(nums.begin(), nums.end(), ans2);
+    //                     if (it != nums.end() && it != nums.end())
+    //                     continue;
+    //                     else if(it == nums.end()) 
+    //                     fin= ans1;
+    //                     else  if(it1 == nums.end()) 
+    //                    fin=ans2;
+                        
+
+            
+    //             }
+    //         }
+           
+    // return fin;
+    //     }
+};

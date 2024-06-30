@@ -1,0 +1,73 @@
+class Solution {
+public:
+ int findMaxLength(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+
+        unordered_map<int, int> count;
+        int max_length = 0;
+        int sum = 0;
+
+        // Initialize the count with sum = 0 at index -1
+        count[0] = -1;
+
+        for (int i = 0; i < n; ++i) {
+            // If the current element is 0, decrement the sum; otherwise, increment it
+            sum += (nums[i] == 0) ? -1 : 1;
+
+            // If the sum has been seen before, update the maximum length
+            if (count.find(sum) != count.end()) {
+                max_length = max(max_length, i - count[sum]);
+            } else {
+                // Otherwise, store the sum along with its index
+                count[sum] = i;
+            }
+        }
+
+        return max_length;
+    }
+};
+// int findMaxLength(vector<int>& nums) {
+//     vector<int> a0(nums.size(), 0); // Initialize a0 with size of nums and all elements as 0
+//     vector<int> a1 = nums;
+//     int oo = 0;
+//     int zz = 0;
+//     for (int i = 0; i < nums.size(); i++) {
+//         if (nums[i] == 0)
+//             zz++;
+
+//         a0[i] = zz;
+
+//         if (nums[i] == 1)
+//             oo++;
+//         a1[i] = oo;
+//     }
+//     int mx = 0;
+//     for (int i = nums.size() - 1; i >= 0; i--) {
+//         if (a1[i] == a0[i]) {
+//             mx = i+1;
+//             break;
+//         }
+//     }
+//     for(auto i:a1)
+//     cout<<i<<" ";
+//     cout<<endl;
+//     for(auto i:a0)
+//     cout<<i<<" ";
+//     cout<<endl;
+
+//     int n = nums.size();
+//     for (int i = n - 1; i >= 1; i--) {
+//         for (int j = 0; j < i; j++) {
+//             // if (i + j <= n ) { // Corrected loop condition
+//                 if ((a1[i] - a1[j]) == (a0[i] - a0[j])) {
+//                     if(i-j>mx){
+//                     // mx = max(mx, i-j);
+//                     return i-j;
+//                     break;
+//                 }
+//             }
+//         }
+//     }
+//     return mx;
+// }

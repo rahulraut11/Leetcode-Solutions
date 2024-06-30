@@ -1,0 +1,81 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+
+ class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if (head == NULL || head->next == NULL) // Handling cases where list is empty or has only one element
+            return;
+        
+        vector<int> v;
+        ListNode* p = head;
+
+        // Store values of nodes in the list
+        while (p != NULL) {
+            v.push_back(p->val);
+            p = p->next;
+        }
+
+        p = head;
+        int i = 0;
+        int j = v.size() - 1;
+
+        while (i <= j) {
+            p->val = v[i];
+            p = p->next;
+            if (i != j) { // Avoid accessing same element twice if list has odd number of elements
+                p->val = v[j];
+                p = p->next;
+            }
+            i++;
+            j--;
+        }
+    }
+};
+
+// class Solution {
+// public:
+//     void reorderList(ListNode* head) {
+//         ListNode* p=head;
+//         vector<int>v;
+
+//         while(p!=NULL){
+//             v.push_back(p->val);
+//             p=p->next;
+//         }
+//         if(v.size()%2==0){
+//             int i=0;
+//             ListNode* q=head;
+//             while(q!=NULL){
+//                 q->val=v[i];
+//                 q=q->next;
+//                 // int r=abs(v.size()-i);
+//                 q->val=v[v.size()-i];
+//                 q=q->next;
+//                 i++;
+//             }
+//         }
+//         else{
+//  int i=0;
+//             ListNode* q=head;
+//             while(q->next!=NULL){
+//                 q->val=v[i];
+//                 q=q->next;
+//                 q->val=v[v.size()-i];
+//                 q=q->next;
+//                 i++;
+//             }
+//             q->val=v[v.size()/2];
+//         }
+        
+//     }
+// };

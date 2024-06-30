@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+    long long r = 1;
+    int c = 0;
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] != 0)
+            r *= nums[i];
+        else if(nums[i]==0)
+            c++;
+    }
+    vector<int> a(nums.size()); // Initialize vector a with the same size as nums
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] != 0) {
+            if (c > 0)
+                a[i] = 0;
+            else {
+                a[i] = r / nums[i];
+            }
+        }
+        else if (nums[i] == 0) {
+            if (c > 1)
+                a[i] = 0;
+            else
+                a[i] = r;
+        }
+    }
+    return a;
+}
+};

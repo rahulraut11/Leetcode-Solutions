@@ -1,0 +1,46 @@
+class Solution {
+public:
+
+bool checkcycle(int node,unordered_map<int,bool> &visit,unordered_map<int,bool> &dfsvisit,unordered_map<int,set<int>> &adj){
+    visit[node]=true;
+    dfsvisit[node]=true;        // mark both as true
+
+    for(auto i:adj[node]){
+        if(visit[i]==0){       // not visited node
+            bool cycle_det=checkcycle(i,visit,dfsvisit,adj);
+            if(cycle_det)
+             return true;
+                }
+            else if(dfsvisit[i]==1) // visit =1 & dfsvisit =1
+            return true;
+         
+    }
+    dfsvisit[node]=false;
+    return false;               // wapis jate wakt 0 kr do dfsvisit ko
+}
+
+
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        // return true;
+        unordered_map<int,set<int>>adj;
+        for(auto i:prerequisites){
+            vector<int>j=i;
+            int a=j[0];
+            int b=j[1];
+            adj[a].insert(b);
+            // cout<<a<<" "<<b<<endl;
+        }
+// call dfs for all components
+   unordered_map<int,bool> visit;
+   unordered_map<int,bool> dfsvisit;
+
+   for(int i=0;i<numCourses;i++){
+        if(!visit[i]){
+            bool cycle_found=checkcycle(i,visit,dfsvisit,adj);
+             if(cycle_found)
+              return false;
+        }
+   }
+   return true;
+    }
+};

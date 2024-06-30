@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int longestUnivaluePath(TreeNode* root) {
+        if (root == nullptr)
+            return 0;
+
+        int longestPath = 0;
+        calculateLongestPath(root, longestPath);
+        return longestPath;
+    }
+    
+private:
+    int calculateLongestPath(TreeNode* node, int& longestPath) {
+        if (node == nullptr)
+            return 0;
+
+        int leftPath = calculateLongestPath(node->left, longestPath);
+        int rightPath = calculateLongestPath(node->right, longestPath);
+
+        int arrowLeft = 0, arrowRight = 0;
+        if (node->left != nullptr && node->left->val == node->val)
+            arrowLeft += leftPath + 1;
+        if (node->right != nullptr && node->right->val == node->val)
+            arrowRight += rightPath + 1;
+
+        longestPath = max(longestPath, arrowLeft + arrowRight);
+        return max(arrowLeft, arrowRight);
+    }
+};

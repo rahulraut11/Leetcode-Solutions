@@ -1,0 +1,36 @@
+class Solution {
+public:
+ 
+vector<int> largestDivisibleSubset(vector<int>& nums) {
+    sort(nums.begin(), nums.end());
+
+    int n = nums.size();
+    vector<int> dp(n, 1);
+    vector<int> hsh(n, -1); // Initialize to -1
+
+    int max_len = 1, max_index = 0;
+
+    for (int i = 1; i < n; i++) {
+        for (int prev = 0; prev < i; prev++) {
+            if (nums[i] % nums[prev] == 0 && dp[i] < dp[prev] + 1) {
+                dp[i] = dp[prev] + 1;
+                hsh[i] = prev; // Update hsh to track the previous index
+                if (dp[i] > max_len) {
+                    max_len = dp[i];
+                    max_index = i;
+                }
+            }
+        }
+    }
+
+    vector<int> result;
+    int index = max_index;
+    while (index >= 0) {
+        result.push_back(nums[index]);
+        index = hsh[index];
+    }
+
+    return result;
+}
+
+};

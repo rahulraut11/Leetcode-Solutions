@@ -1,0 +1,31 @@
+class Solution {
+public:
+
+int  nthSuperUglyNumber(int n, vector<int>& primes) {
+    vector<int> dp(n);
+    dp[0] = 1;
+
+    vector<int> freq(primes.size(), 0); // Initialize frequencies of prime factors to 0
+
+    for (int i = 1; i < n; ++i) {
+       long long mn = INT_MAX;
+
+        // Find the minimum among the products of prime factors with their frequencies
+        for (int j = 0; j < primes.size(); ++j) {
+            mn = min(mn, dp[freq[j]] *1ll* primes[j]);
+        }
+
+        // Update the dp array with the next ugly number
+        dp[i] = mn;
+
+        // Update the frequencies of prime factors for the next iteration
+        for (int j = 0; j < primes.size(); ++j) {
+            if (mn == dp[freq[j]] * 1ll*primes[j]) {
+                ++freq[j];
+            }
+        }
+    }
+     return dp[n - 1];
+}
+
+};

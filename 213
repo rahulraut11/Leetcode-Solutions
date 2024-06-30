@@ -1,0 +1,49 @@
+class Solution {
+public:
+
+
+int f(int i, int end, vector<int>& nums, vector<int>& dp) {
+    if ( i == end) {
+        return nums[i];
+    }
+
+    if (i < end) {
+        return 0;
+    }
+
+    if (dp[i] != -1) {
+        return dp[i];
+    }
+
+    int take = 0;
+    int notake = 0;
+
+    // Include the current house and exclude the adjacent one
+    take = f(i - 2, end, nums, dp) + nums[i];
+
+    // Exclude the current house
+    notake = f(i - 1, end, nums, dp);
+
+    return dp[i] = max(take, notake);
+}
+
+int rob(vector<int>& nums) {
+    int n = nums.size();
+
+    if (n == 1) {
+        return nums[0];
+    }
+
+    // Scenario 1: Include the first house and exclude the last house
+    vector<int> dp1(n, -1);
+    int ans1 = f(n - 2, 0, nums, dp1);
+
+    // Scenario 2: Include the last house and exclude the first house
+    vector<int> dp2(n, -1);
+    int ans2 = f(n - 1, 1, nums, dp2);
+
+    // Take the maximum from the two scenarios
+    return max(ans1, ans2);
+}
+    
+};

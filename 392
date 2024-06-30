@@ -1,0 +1,21 @@
+class Solution {
+public:
+bool f(string s, string t,int n,int m){
+    if(n==0)
+    return true;
+    if(m==0)
+    return false;
+    if(s[n-1]==t[m-1]){
+        return f(s,t,n-1,m-1);
+    }
+    else{
+        return f(s,t,n,m-1);    // small string remain same large decrease
+    }
+}
+    bool isSubsequence(string s, string t) {
+        int n=s.size();
+        int m=t.size();
+       bool ans=f(s,t,n,m);
+       return ans;
+    }
+};

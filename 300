@@ -1,0 +1,23 @@
+class Solution {
+public:
+int dp[2510];
+int func(int i,vector<int> &nums){// lcs upto index iincluding i in that if i==0 then ans=1 only first ele included
+ int ans=1;
+ if(dp[i]!=-1)   return dp[i];
+
+ for(int j=0;j<i;j++){
+    if(nums[i]>nums[j])
+    ans=max(ans,func(j,nums)+1);
+ }
+   return dp[i]=ans;
+ }
+int lengthOfLIS(vector<int> &nums)
+{   int n=nums.size();
+    memset(dp,-1,sizeof(dp));
+    int ans=0;
+    for(int i=0;i<n;i++){
+        ans=max({ans,func(i,nums)});   // checking length of lcs upto every 
+    }
+    return ans;
+}
+};
