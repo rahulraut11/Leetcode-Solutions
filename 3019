@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int countKeyChanges(string s) {
+        char c=s[0];
+        int c1=0;
+        for(int i=1;i<s.size();i++){
+            if(s[i]!=c && abs(s[i]-c)!=32){
+                c1++;
+            c=s[i];
+        }
+        }
+        return c1;
+        
+    }
+};

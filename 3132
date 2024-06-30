@@ -1,0 +1,127 @@
+// class Solution {
+// public:
+//     int minimumAddedInteger(vector<int>& nums1, vector<int>& nums2) {
+//         sort(nums1.begin(),nums1.end());
+//         sort(nums2.begin(),nums2.end());
+//         int mn=INT_MAX;
+//         vector<int>ans;
+//         int n=nums1.size();
+//         for(int i=0;i<n;i++){
+//             for(int j=i+1;j<n;j++){
+//                 vector<int>v=nums1;
+//                 v[i]=0;
+//                 v[j]=0;
+//                 set<int>s;
+//                 int k=0;
+//                 int q=0;
+//                 // for(int q=0;q<v.size();q++){
+//                 while(q<n){
+//                     if(v[q]==0)
+//                         q++;
+//                     else if(v[q]!=0){
+//                         int r=nums2[k]-v[q];
+//                         k++;
+//                         q++;
+//                         s.insert(r);
+//                         cout<<r<<" "; 
+//                     }
+                    
+//                 }
+//                 cout<<endl;
+                
+//                 if(s.size()==1){
+//                     int p=*s.begin();
+//                      mn=min(mn,p);
+//             }
+//             }
+            
+            
+//         }
+//         if(mn==INT_MAX)
+//             return 0;
+//         return mn;
+// //         
+//     }
+// //     [4,20,16,12,8]
+// // [14,18,10]
+// // [3,5,5,3]
+// // [7,7]
+// // [0,7,6,5,7,0,6,8,2,7]
+// // [6,7,8,0,5,2,7,0]
+// };
+
+class Solution {
+public:
+    int minimumAddedInteger(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        int mn = INT_MAX;
+        int n = nums1.size();
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                vector<int> v(nums1.begin(),nums1.end());
+            
+                v[i] = -1;
+                v[j] = -1;
+                set<int> s;
+                int k = 0;
+                int q = 0;
+                while (k < nums2.size() && q < n) {
+                    if (v[q] == -1)
+                        q++;
+                    else {
+                        int r = nums2[k] - v[q];
+                        k++;
+                        q++;
+                        s.insert(r);
+                    }
+                }
+                if (s.size() == 1) {
+                    int p = *s.begin();
+                    mn = min(mn, p);
+                }
+            }
+        }
+        if (mn == INT_MAX)
+            return 0;
+        return mn;
+    }
+};
+
+// class Solution {
+// public:
+//     int minimumAddedInteger(vector<int>& nums1, vector<int>& nums2) {
+//         sort(nums1.begin(), nums1.end());
+//         sort(nums2.begin(), nums2.end());
+//         int mn = INT_MAX;
+//         int n = nums1.size();
+//         for (int i = 0; i < n; i++) {
+//             for (int j = i + 1; j < n; j++) {
+//                 vector<int> v = nums1;
+//                 v[i] = 0;
+//                 v[j] = 0;
+//                 set<int> s;
+//                 int k = 0;
+//                 int q = 0;
+//                 while (q < n) {
+//                     if (v[q] == 0)
+//                         q++;
+//                     else {
+//                         int r = nums2[k] - v[q];
+//                         k++;
+//                         q++;
+//                         s.insert(r);
+//                     }
+//                 }
+//                 if (s.size() == 1) {
+//                     int p = *s.begin();
+                    
+//                     mn = min(mn, p);
+//                 }
+//             }
+//         }
+//         if (mn == INT_MAX)
+//             return 0;
+//         return mn;
+//     }
+// };

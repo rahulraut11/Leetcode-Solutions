@@ -1,0 +1,61 @@
+class Solution {
+public:
+    int maxPalindromesAfterOperations(vector<string>& words) {
+        vector<int>v;
+        string str="";
+        for(int i=0;i<words.size();i++){
+            v.push_back(words[i].size());
+            str+=words[i];
+            }
+        
+        unordered_map<int,int>mp;
+        for(int i=0;i<str.size();i++){
+            mp[str[i]-'a']++;
+        }
+        int anse=0,anso=0;
+        
+        for(auto i:mp){
+            if(i.second%2==0)
+            anse+=i.second;
+            else{
+                anso+=1;
+                anse+=i.second-1;
+                
+            }
+               
+        }
+        sort(v.begin(),v.end());
+        int c=0;
+        int t=0;
+        for(auto i:v){
+            if(i%2==0){
+                if(anse>=i){
+                    anse-=i;
+                    c++;
+                }
+            }
+            else if(i%2==1){
+                    if(anse>=i-1){
+                        anse-=(i-1);
+                         if(anso>=1){
+                             i--;
+                             c++;
+                         }
+                        else{
+                            t++;
+                        }
+                        
+                    }
+                }
+            }
+        
+        if(anse>=t){
+            c+=t;
+        }
+        else{
+            c+=(anse);
+        }
+        return c;
+        
+    }
+};

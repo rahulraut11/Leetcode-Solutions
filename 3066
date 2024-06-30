@@ -1,0 +1,35 @@
+#include <queue>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        priority_queue<long long,vector<long long>,greater<long long>>pq(nums.begin(),nums.end());
+        int ans = 0;
+        
+        bool allGreaterOrEqual = true;
+        for (int num : nums) {
+            if (num < k) {
+                allGreaterOrEqual = false;
+                break;
+            }
+        }
+        if (allGreaterOrEqual) return 0;
+
+        // Proceed with the existing logic
+        while (!pq.empty()){
+               long long node=pq.top();
+            pq.pop();
+            if(node>=k)return ans;
+            long long adjnode=pq.top();
+            pq.pop();
+            pq.push(node*2+adjnode);
+            ans++;
+            
+            
+        }
+        
+        return 1;
+    }
+};

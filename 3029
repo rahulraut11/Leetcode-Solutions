@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int minimumTimeToInitialState(string word, int k) {
+        int time = 0;
+        int pos = 0;
+
+        while (pos < word.length()) {
+            time++;
+            pos += k;
+            if (pos < word.length() && word.starts_with(word.substr(pos))) {
+                return time;
+            }
+        }
+        return time;
+    }
+};

@@ -1,0 +1,54 @@
+class Solution {
+public:
+    string minimizeStringValue(string str) {
+       
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>mh;
+         vector<int> vs(26,0);
+        
+         for( int i=0;i<str.size();i++){
+                         if(str[i]!='?'){
+                vs[str[i]-'a']++;
+            }
+         }
+        
+        
+        
+        
+        for(int j=0;j<26;j++){
+                             mh.push({vs[j],{j,j+'a'}});
+        }                   
+        
+                        string ans1="";
+         for( int i=0;i<str.size();i++){
+             // else{
+             //     ans+=s[i];
+             // }
+            if(str[i]=='?'){
+                
+                auto it=mh.top();
+                mh.pop();
+                        ans1+=it.second.second;
+                it.first++;
+                                mh.push(it);
+            }
+             
+         }
+        sort(ans1.begin(),ans1.end());
+        cout<<ans1<<endl;
+        string rt="";
+        int j=0;
+                
+                for( int i=0;i<str.size();i++){
+            if(str[i]=='?'){
+                        rt+=ans1[j];
+                j++;
+            }
+            else{
+                rt+=str[i];
+                
+            }
+        }
+        
+        return rt;
+    }
+};

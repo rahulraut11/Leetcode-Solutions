@@ -1,0 +1,42 @@
+class Solution {
+public:
+//     int sumOfEncryptedInt(vector<int>& nums) {
+//         int sum=0;
+//         for(int i=0;i<nums.size();i++){
+//             char mx='0';
+//             string p=to_string(nums[i]);
+//             for(int j=0;j<p.size();j++){
+//                 char mx=max(mx,p[j]);
+                
+//             }
+//              for(int j=0;j<p.size();j++){
+//                 p[j]=mx;
+                
+//             }
+//             int r=stoi(p);
+//             sum+=r;
+            
+            
+//         }
+//         return sum;
+        
+        
+//     }
+    int sumOfEncryptedInt(vector<int>& nums) {
+    int sum = 0;
+    for (int i = 0; i < nums.size(); i++) {
+        char mx = '0'; // Initialize mx outside the loop
+        string p = to_string(nums[i]);
+        for (int j = 0; j < p.size(); j++) {
+            mx = max(mx, p[j]); // Store the maximum digit correctly
+        }
+        for (int j = 0; j < p.size(); j++) {
+            p[j] = mx;
+        }
+        int r = stoi(p);
+        sum += r;
+    }
+    return sum;
+}
+
+};

@@ -1,0 +1,57 @@
+class Solution {
+public:
+    bool check(vector<int>&v,vector<int>&pat){
+
+        for(int i=0;i<v.size()-1;i++){
+            if((v[i+1]-v[i])>0){
+                if(pat[i]==0 || pat[i]==-1)
+                    return false;
+            }
+             else if((v[i+1]-v[i])==0){
+                if(pat[i]==1 || pat[i]==-1)
+                    return false;
+            }
+             if((v[i+1]-v[i])<0){
+                if(pat[i]==0 || pat[i]==1)
+                    return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    
+    int countMatchingSubarrays(vector<int>& nums, vector<int>& pattern) {
+        
+        int k=pattern.size();
+        k++;
+        vector<int>v;
+        vector<vector<int>>fin;
+        for(int i=0;i<k;i++){
+            v.push_back(nums[i]);
+            }
+            fin.push_back(v);
+
+        
+        for(int i=k;i<nums.size();i++){
+            reverse(v.begin(),v.end());
+            v.pop_back();
+            reverse(v.begin(),v.end());
+            v.push_back(nums[i]);
+            fin.push_back(v);
+
+            
+            
+        }
+        
+        int c=0;
+        for(int i=0;i<fin.size();i++){
+            if(check(fin[i],pattern))
+                c++;
+        }
+        
+        return c;
+        
+        
+    }
+};

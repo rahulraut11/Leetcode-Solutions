@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int minimumPushes(string word) {
+        
+         int sum=0;
+    int n=word.size();
+        vector<int>hsh(26,0);
+     for(int i=0;i<n;i++){
+         hsh[word[i]-'a']++;
+     }
+     sort(hsh.begin(),hsh.end());
+     for(int i=0;i<2;i++)
+         sum+=hsh[i]*4;
+         for(int i=2;i<10;i++)
+         sum+=hsh[i]*3;
+              for(int i=10;i<18;i++)
+         sum+=hsh[i]*2;
+         for(int i=18;i<26;i++)
+         sum+=hsh[i];
+             
+         
+     
+return sum;         
+  
+        
+    }
+};
+
+   

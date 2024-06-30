@@ -1,0 +1,31 @@
+class Solution {
+public:
+bool find(string s){
+    unordered_map<char,int>mp;
+    for(int i=0;i<s.size();i++){
+        mp[s[i]]++;
+    }
+    for(auto i:mp){
+        if(i.second>=3)
+        return false;
+    }
+    return true;
+}
+    int maximumLengthSubstring(string s) {
+        int mx=0;
+        for(int i=0;i<s.size();i++){
+            for(int j=1;j<=s.size();j++){
+                if((i+j)<=s.size()){
+                    // cout<<j<<endl;
+                    string p=s.substr(i,j);
+                    if(find(p)){
+                        mx=max(mx,j);
+                    }
+                }
+            }
+        }
+            return mx;
+
+        }
+        
+};

@@ -1,0 +1,31 @@
+class Solution {
+public:
+        int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+    int minimumArrayLength(vector<int>& nums) {
+    int n = nums.size();
+int zero=0;
+    // Calculate the GCD of the entire array
+    int arrayGCD = nums[0];
+    for (int i = 1; i < n; i++) {
+        arrayGCD = gcd(arrayGCD, nums[i]);
+    }
+    for(auto it:nums)
+            if(it==arrayGCD)
+                zero++;
+        return (zero+1)/2 <=1 ? 1 : (zero+1)/2;
+
+    }
+
+    
+};
+
+
+
+
+
+
+
+
+

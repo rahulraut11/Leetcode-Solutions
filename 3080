@@ -1,0 +1,119 @@
+
+// class Solution {
+// public:
+    
+//     static bool comp(pair<int,int>& a, pair<int,int>& b) {
+//     if (a.first != b.first) {
+//         return a.first < b.first;
+//     } else {
+//         return a.second < b.second;
+//     }
+// }
+    
+//     vector<long long> unmarkedSumArray(vector<int>& nums, vector<vector<int>>& q) {
+//         long long sum=0;
+//         int n=nums.size();
+//         // int mp=q.size();
+        
+//         // map<int,long long>m;
+//         vector<pair<long long,int>>mp;
+//         for(int i=0;i<n;i++){
+//             sum+=nums[i];
+//             mp.push_back({nums[i],i});
+//         }
+//         vector<long long>ans;
+
+//         sort(mp.begin(),mp.end(),comp);
+        
+        
+//         for(int i=0;i<n;i++){
+//             int a=mp[i].first;
+//             int b=mp[i].second;
+//             mp[i]={b,a};
+//         }
+        
+// //         for(auto i:v){
+// //             cout<<i.first<<" "<<i.second<<endl;
+// //         }
+        
+//         vector<int>vis(n,0);
+//         int k=0;
+//         for(int i=0;i<q.size();i++){
+//             int a=q[i][0];
+//             int b=q[i][1];
+            
+//             if(vis[a]==0){
+//                 sum-=nums[a];
+//                 vis[a]=1;
+//             }
+            
+//             while(b>0 && k<n){
+//                 if(vis[v[k].first]==0){
+//                     sum-=nums[mp[k].first];
+//                     vis[mp[k].first]=1;
+//                     b--;
+                    
+                    
+//                 }
+//                 k++;
+//             }
+            
+//             // for(auto ii:vis){
+//             //     cout<<ii<<" ";
+//             // }cout<<endl;
+//             ans.push_back(sum);
+//         }
+        
+
+        
+//         return ans;
+//     }
+// };
+#include <vector>
+#include <utility>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+   
+    
+    vector<long long> unmarkedSumArray(vector<int>& nums, vector<vector<int>>& q) {
+        long long sum = 0;
+        int n = nums.size();
+        vector<pair<long long,int>> mp;
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            mp.push_back({nums[i], i});
+        }
+        vector<long long> ans;
+
+        sort(mp.begin(), mp.end());
+        
+        vector<int> vis(n, 0);
+        int k = 0;
+        for (int i = 0; i < q.size(); i++) {
+            int a = q[i][0];
+            int b = q[i][1];
+            
+            if (vis[a] == 0) {
+                sum -= nums[a];
+                vis[a] = 1;
+            }
+            
+            while (b > 0 && k < n) {
+                if (vis[mp[k].second] == 0) {
+                    sum -= nums[mp[k].second];
+                    vis[mp[k].second] = 1;
+                    b--;
+                }
+                k++;
+            }
+            
+            ans.push_back(sum);
+        }
+        
+        return ans;
+    }
+};

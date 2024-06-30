@@ -1,0 +1,76 @@
+
+
+
+class Solution {
+public:
+    int f(int i, int j, vector<vector<int>>& dp, vector<int>& nums, int s1) {
+        if (i >= j)
+            return 0;
+
+        if (dp[i][j] != -1)
+            return dp[i][j];
+
+        int r1 = 0, r2 = 0, r3 = 0;
+
+        if (nums[i] + nums[i + 1] == s1)
+            r1 = 1 + f(i + 2, j, dp, nums, s1);
+
+        if (nums[i] + nums[j] == s1)
+            r2 = 1 + f(i + 1, j - 1, dp, nums, s1);
+
+        if (nums[j] + nums[j - 1] == s1)
+            r3 = 1 + f(i, j - 2, dp, nums, s1);
+
+        return dp[i][j] = max({r1, r2, r3});
+    }
+
+    int maxOperations(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+        int sum1 = nums[0] + nums[1];
+        int sum2 = nums[n - 1] + nums[n - 2];
+        int sum3 = nums[0] + nums[n - 1];
+        int ans = max(f(2, n - 1, dp, nums, sum1)+1, max(f(0, n - 3, dp, nums, sum2)+1, f(1, n - 2, dp, nums, sum3)+1));
+        return ans;
+    }
+};
+
+
+// class Solution {
+// public:
+//     int f(int i, int j, vector<vector<int>>& dp, vector<int>& nums, int s1) {
+//         if (i >= j)
+//             return 0;
+
+//         if (dp[i][j] != -1)
+//             return dp[i][j];
+
+//         int r1 = 0, r2 = 0, r3 = 0;
+
+//         if (nums[i] + nums[i + 1] == s1)
+//             r1 = 1 + f(i + 2, j, dp, nums, s1);
+
+//         if (nums[i] + nums[j] == s1)
+//             r2 = 1 + f(i + 1, j - 1, dp, nums, s1);
+
+//         if (nums[j] + nums[j - 1] == s1)
+//             r3 = 1 + f(i, j - 2, dp, nums, s1);
+
+//         return dp[i][j] = max({r1, r2, r3});
+//     }
+
+//     int maxOperations(vector<int>& nums) {
+//         int n = nums.size();
+//         vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
+
+//         // Calculate the sums of the first two elements, last two elements, and the first and last elements
+//         int sum1 = nums[0] + nums[1];
+//         int sum2 = nums[n - 1] + nums[n - 2];
+//         int sum3 = nums[0] + nums[n - 1];
+
+//         // Calculate the maximum number of operations for each sum
+//         int ans = max(f(0, n - 1, dp, nums, sum1), max(f(0, n - 1, dp, nums, sum2), f(0, n - 1, dp, nums, sum3)));
+
+//         return ans;
+//     }
+// };

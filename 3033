@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> modifiedMatrix(vector<vector<int>>& arr) {
+int n=arr.size();
+        int m=arr[0].size();
+        vector<int>v;
+        for(int i=0;i<m;i++){
+            int mx=-1;
+            for(int j=0;j<n;j++){
+                mx=max(mx,arr[j][i]);
+                
+            }
+            v.push_back(mx);
+        }
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(arr[i][j]==-1)
+                    arr[i][j]=v[j];
+            }
+        }
+        return arr;
+    }
+};

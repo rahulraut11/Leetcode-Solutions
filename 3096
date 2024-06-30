@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minimumLevels(vector<int>& p) {
+        int sum=0;
+        for(int i=0;i<p.size();i++){
+            if(p[i]==0){
+                sum+=-1;
+
+            }
+            else if(p[i]==1)
+            sum+=1;
+            p[i]=sum;
+        }
+int ans=-1;
+        int r=p[p.size()-1];
+        for(int i=0;i<p.size()-1;i++){
+            int a=p[i];
+            int b=r-p[i];
+            if(a>b){
+            ans=i+1;
+            break;
+            }
+
+
+        }
+        return ans;
+    }
+};

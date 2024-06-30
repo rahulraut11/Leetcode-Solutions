@@ -1,0 +1,50 @@
+class Solution {
+public:
+    string lastNonEmptyString(string s) {
+       unordered_map<char,int>mp;
+        for(int i=0;i<s.size();i++){
+            mp[s[i]]++;
+        
+        }
+        vector<char>v;
+        string str="";
+        // set<int>;
+
+    vector<int>vec;
+        int mn=1e7;
+        int mx=-1;
+        for(auto i:mp){
+            mn=min(mn,i.second);
+            mx=max(mx,i.second);
+            vec.push_back(i.second);
+        }
+      
+            for(auto i:mp){
+                if(i.second==mx){
+                    v.push_back(i.first);
+                    
+                    
+                }
+                
+            }
+           
+sort(v.begin(),v.end());
+            for(int i=s.size()-1;i>=0;i--){
+                char c1=s[i];
+                if(binary_search(v.begin(),v.end(),c1)){
+                    if(mp[c1]>0){
+                        str.append(1,c1);
+                        mp[c1]=0;
+
+                    }
+                    
+
+                      
+                    
+                }
+            }
+            reverse(str.begin(),str.end());
+        
+        return str;
+    }
+};

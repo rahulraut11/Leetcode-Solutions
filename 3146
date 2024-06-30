@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int findPermutationDifference(string s, string t) {
+        unordered_map<char,int>mp;
+        for(int i=0;i<t.size();i++){
+            mp[t[i]]=i;
+        }
+int sum=0;
+        for(int j=0;j<s.size();j++){
+            sum+=abs(mp[s[j]]-j);
+        }
+        return sum;
+    }
+};

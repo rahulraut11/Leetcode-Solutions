@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int minimumCost(vector<int>& arr) {
+        int n=arr.size();
+        int ans=1e9;
+    
+        // for(int i=0;i<n;i++){
+        int i=0;
+    for(int j=i+1;j<n;j++){
+        for(int k=j+1;k<n;k++){
+            ans=min({ans,arr[i]+arr[j]+arr[k]});
+        }
+    
+   }
+        return ans;
+    }
+};

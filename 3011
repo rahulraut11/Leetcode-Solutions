@@ -1,0 +1,50 @@
+class Solution {
+public:
+    bool canSortArray(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>bit(n,0),v;
+        
+        for(int i=0;i<n;i++){
+            int r=__builtin_popcount(nums[i]);
+            bit[i]+=r;
+        }
+        
+        // for(auto i:bit)
+        //     cout<<i<<" ";
+        // cout<<endl;
+        int  t=bit[0];
+        int c=0;
+        for(int i=0;i<bit.size();i++){
+            if(bit[i]!=t){
+                if(c>0)
+                v.push_back(c);
+                c=1;
+                t=bit[i];
+                
+            }
+            else
+                c++;
+        }
+        if(c>0)
+            v.push_back(c);
+        
+        // for(auto i:v)
+        //     cout<<i<<" ";
+        //         cout<<endl;
+
+        
+        int q=0;
+        for(int i=0;i<v.size();i++){
+            sort(nums.begin()+q,nums.begin()+q+v[i]);
+            q+=v[i];
+        }
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]>nums[i+1])
+                return false;
+        }
+        return true;
+        
+        
+        
+    }
+};
