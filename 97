@@ -1,0 +1,91 @@
+// class Solution {
+// public:
+
+// // int  dps(string &s,string &t,int n1,int n2){
+// //     vector<vector<int>> dp(n1+1,vector<int>(n2+1,-1));
+// //     if(n1==0 ||n2==0)
+// //     return 0;
+
+// //     if(dp[n1][n2]!=-1)
+// //     return dp[n1][n2];
+ 
+// //  if(s[n1-1]==t[n2-1]){
+// //     return dp[n1][n2]=1+dps(s,t,n1-1,n2-1);
+// //  }
+// //  else{
+// //         return dp[n1][n2]=max({dps(s,t,n1,n2-1),dps(s,t,n1-1,n2)});
+
+// //  }
+// // }
+// bool dps(int i,int j,int k,string s1,string s2,string s3){
+//     if(k==s3.size()-1){
+//         if(s1[i]==s3[k] || s2[j]==s3[k])
+//         return true;
+//         return false;
+//     }
+//     bool ans;
+//     if(s3[k]==s1[i]){
+
+//     ans=dps(i+1,j,k+1,s1,s2,s3);
+//     }
+//     else if(s3[k]==s2[j])
+//     // j++;k++;
+//     ans=dps(i,j+1,k+1,s1,s2,s3);
+//     else
+//     return false;
+//     return ans;
+// }
+
+
+//     bool isInterleave(string s1, string s2, string s3) {
+//         if(s1.size()+s2.size()==s3.size()){
+// return dps(0,0,0,s1,s2,s3);
+//         }
+//         return false;
+//     // int r1=dps(s1,s3,s1.size(),s3.size());
+//     // int r2=dps(s2,s3,s2.size(),s3.size());
+//     // if(r1+r2==s3.size())
+//     // return true;
+
+//     // return false;
+//     }
+// };
+
+class Solution {
+public:
+    bool dps(int i, int j, int k, string &s1, string &s2, string &s3, vector<vector<vector<int>>>& dp) {
+        if (k == s3.size()) {
+            return true;
+        }
+
+        if (dp[i][j][k] != -1) {
+            return dp[i][j][k];
+        }
+
+        bool ans = false;
+
+        if (i < s1.size() && s1[i] == s3[k]) {
+            ans = dps(i + 1, j, k + 1, s1, s2, s3, dp);
+        }
+
+        if (!ans && j < s2.size() && s2[j] == s3[k]) {
+            ans = dps(i, j + 1, k + 1, s1, s2, s3, dp);
+        }
+
+        return dp[i][j][k] = ans;
+    }
+
+    bool isInterleave(string s1, string s2, string s3) {
+        int n1 = s1.size();
+        int n2 = s2.size();
+        int n3 = s3.size();
+
+        if (n1 + n2 != n3) {
+            return false;
+        }
+
+        vector<vector<vector<int>>> dp(n1 + 1, vector<vector<int>>(n2 + 1, vector<int>(n3 + 1, -1)));
+
+        return dps(0, 0, 0, s1, s2, s3, dp);
+    }
+};

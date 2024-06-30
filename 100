@@ -1,0 +1,34 @@
+
+class Solution 
+{
+    void solve(TreeNode* root,vector<int>&v)
+    {
+        if(root==NULL) 
+       {
+           v.push_back(-1); 
+           return;
+        }
+
+          
+        solve(root->left,v);
+        solve(root->right,v);
+        v.push_back(root->val); 
+
+    }
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q)
+    {
+       vector<int> v1; solve(p,v1);
+       vector<int> v2; solve(q,v2);
+       
+       if(v1==v2)
+       {
+           return true;
+       }
+       else
+        return false;
+
+      
+
+    }
+};
