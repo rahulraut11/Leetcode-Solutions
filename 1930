@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        // vector<vector<int>> v(26);
+        // for(int i=0;i<s.size();i++){
+        //     v[s[i]-'a'].push_back(i);
+        // }
+        // int c=0;
+        // for(vector<int> i:v){
+        //     vector<int> d=i;
+        //     int t=d[0];
+        //     int m=d[d.size()-1];
+        //     for(auto j:v){
+        //         if(j!=i){
+        //             vector<int> p=j;
+        //             for(int i=0;i<p.size();i++){
+        //                 if(p[i]>t && p[i]<m){
+        //                     c++;
+        //                     break;
+        //                 }
+        //             }
+
+
+        //             }
+        //         }
+        //     }
+        //     return c;
+     
+        vector<vector<int>> positions(26);
+
+        // Storing positions of each character in the string
+        for (int i = 0; i < s.size(); ++i) {
+            positions[s[i] - 'a'].push_back(i);
+        }
+
+        int count = 0;
+
+        // Iterating over characters
+        for (int i = 0; i < 26; ++i) {
+            vector<int> char_positions = positions[i];
+
+            // Checking if the character occurs at least twice
+            if (char_positions.size() > 1) {
+                int start = char_positions.front();
+                int end = char_positions.back();
+
+                // Checking distinct characters between start and end positions
+                set<char> distinct_chars(s.begin() + start + 1, s.begin() + end);
+
+                // Incrementing count by the number of distinct characters
+                count += distinct_chars.size();
+            }
+        }
+
+        return count;
+    }
+};

@@ -1,0 +1,28 @@
+class Solution {
+public:
+int c;
+unordered_map<int,int>mp;
+void explore(vector<int>&nums,int  k,int ind){
+
+    if(ind==nums.size()){
+    c++;
+    return;
+    }
+    int val=nums[ind];
+    if(mp.find(val+k)==mp.end() && mp.find(val-k)==mp.end()){
+        mp[val]++;
+        explore(nums,k,ind+1);
+        mp[val]--;
+
+        if(mp[val]==0)
+         mp.erase(val);
+    }
+    explore(nums,k,ind+1);
+}
+
+    int beautifulSubsets(vector<int>& nums, int k) {
+        c=0;
+        explore(nums,k,0);
+        return c-1;
+    }
+};

@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> findIntersectionValues(vector<int>& nums1, vector<int>& nums2) {
+        
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        
+        vector<int>v;
+        int c=0;
+        int d=0;
+        
+        for(int i=0;i<nums1.size();i++){
+            if(binary_search(nums2.begin(),nums2.end(),nums1[i]))
+            c++;
+        }
+        // cout<<c<<endl;
+        v.push_back(c);
+        
+         for(int i=0;i<nums2.size();i++){
+            if(binary_search(nums1.begin(),nums1.end(),nums2[i]))
+            d++;
+        }
+                // cout<<d<<endl;
+
+        v.push_back(d);
+        
+        
+        
+return v;
+        
+    }
+};

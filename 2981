@@ -1,0 +1,140 @@
+// class Solution {
+// public:
+//     int maximumLength(string s) {
+//         char ch=s[0];
+//         int c=1;
+//         vector<vector<int>>v(26);
+        
+//         for(int i=1;i<s.size();i++){
+//             if(s[i]==s[i-1])
+//                 c++;
+//             else if(s[i]!=s[i-1]){
+//                 if(c>=0){
+//                 v[ch-'a'].push_back(c);
+//                 c=1;
+//                 ch=s[i];
+//                 }
+                
+//             }
+//         }
+//             if(c>0){
+//                 v[ch-'a'].push_back(c);
+//             }
+//             for(auto i:v){
+//                 sort(i.rbegin(),i.rend());
+//             }
+            
+            
+//             vector<int> ans;
+//             for(auto i:v){
+//                 vector<int> q=i;
+//                 if(q[0]==q[1]==q[2])
+//                     ans.push_back(q[0]);
+//                 else if(q[0]==q[1]!=q[2])
+//                     ans.push_back(q[0]-1);
+//                 else if(q[0]==q[1]+1)
+//                     ans.push_back(q[1]);
+//                 else
+//                     ans.push_back(q[0]-2);
+//             }
+//             return *max_element(ans.begin(),ans.end());
+    
+        
+        
+        
+//     }
+// };
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+class Solution {
+public:
+    int maximumLength(std::string s) {
+        char ch = s[0];
+        int c = 1;
+        // vector<int> ans;
+        std::vector<std::vector<int>> v(26);
+
+        for (int i = 1; i < s.size(); i++) {
+            if (s[i] == s[i - 1])
+                c++;
+            else if (s[i] != s[i - 1]) {
+                if (c >= 0) {
+                    v[ch - 'a'].push_back(c);
+                    c = 1;
+                    ch = s[i];
+                }
+            }
+        }
+
+        if (c > 0) {
+            v[ch - 'a'].push_back(c);
+        }
+
+        for (auto &i : v) {
+            std::sort(i.rbegin(), i.rend());
+        }
+// for(auto i:v){
+//     for(auto j:i){
+//         cout<<j<<" ";
+//     }
+//     cout<<endl;
+// }
+        std::vector<int> ans;
+        for (auto &i : v) {
+            std::vector<int> q = i;
+            sort(q.rbegin(),q.rend());
+            if(q.size()>0){
+            if (q.size() >= 3){
+                
+                if(q[0] == q[1] && q[1] == q[2] )
+                    ans.push_back(q[0]);
+                else if(q[0] == q[1] && q[1] != q[2])
+                     ans.push_back(q[0]-1);
+                else if(q[0]!=q[1] && q[1]==q[2]){
+                    int r=max({q[0]-2,q[1]});
+                    ans.push_back(r);
+                }
+                else {
+                     int r1=max({q[0]-2,q[1]});
+                    ans.push_back(r1);
+                    
+                }
+//                     ans.push_back(max({
+                        
+//                     }));              
+
+         
+            }
+            else if (q.size() == 2){
+                if(q[0]==q[1]+1)
+                    ans.push_back(q[0]-1);
+                else if(q[0]==q[1])
+                    
+                     ans.push_back(q[0]-1);
+                else
+                        ans.push_back(q[0]-2);
+                
+            } 
+            
+         else if (q.size() == 1) {
+                ans.push_back(q[0]-2);
+            }
+            }
+        }
+            
+        sort(ans.begin(), ans.end());
+        int e=-1;
+                // for(int i=ans.size()-1;i>=0;i--)
+                //     cout<<ans[i]<<" ";
+
+        for(int i=ans.size()-1;i>=0;i--){
+            if(ans[i]>0){
+                return ans[i];
+        }
+        }
+
+        return e;
+    }
+};

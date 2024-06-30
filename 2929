@@ -1,0 +1,19 @@
+class Solution {
+public:
+
+    long long distributeCandies(long long int n, long long int limit) {
+        long long int ans = 0; 
+        for(long long int child = 0; child <= min(n, limit); child++){
+            long long int rem = n - child;
+            if(rem > 2 * limit) continue;
+            long long int rem_1 = rem - limit;
+            if(rem_1 <= 0) ans += (rem + 1);
+            else {
+                ans += (limit - rem_1) + 1;
+                if(!(rem_1 % 2)) ans - 1;            
+            }
+        }
+        return ans;
+    }
+
+};
