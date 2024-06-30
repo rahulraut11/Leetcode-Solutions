@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int specialArray(vector<int>& nums) {
+        int x=0;
+        sort(nums.begin(),nums.end());
+        int c=0;
+
+        int mx=nums[nums.size()-1];
+        for(int x=0;x<=mx;x++){
+            int r=lower_bound(nums.begin(),nums.end(),x)-nums.begin();
+            int ele=nums.size()-r;
+            if(ele==x)
+            return ele;
+        }
+        return -1;
+    }
+};

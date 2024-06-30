@@ -1,0 +1,61 @@
+// class Solution {
+// public:
+//     vector<string> commonChars(vector<string>& words) {
+//         vector<vector<int>>v(words.size(),vector<int>(26,0));
+
+        
+//         for(int i=0;i<words.size();i++){
+//             for(int j=0;j<words[i].size();j++){
+//                 v[i][words[i][j]-'a']++;
+//             }
+//         }
+//         unordered_map<char,int>mp;
+
+//         for(int j=0;j<26;j++){
+//             int mx=0;
+//             for(int i=0;i<v.size();i++){
+//                 mx=max(v[i][j],mx);
+//             }
+//             mp['a'+j]=mx;
+
+//             }
+// vector<char>f;
+
+//             for(auto i:mp){
+//                 for(int j=0;j<i.second;j++)
+//                 f.push_back(i.first);
+//             }
+
+//        return  string(f.begin(), f.end());
+
+//             // return f;
+    
+//     }
+// };
+
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& words) {
+        vector<int> minFreq(26, INT_MAX);
+
+        for(const string& word : words) {
+            vector<int> freq(26, 0);
+            for(char c : word) {
+                freq[c - 'a']++;
+            }
+            for(int i = 0; i < 26; i++) {
+                minFreq[i] = min(minFreq[i], freq[i]);
+            }
+        }
+
+        vector<string> result;
+        for(int i = 0; i < 26; i++) {
+            while(minFreq[i] > 0) {
+                result.push_back(string(1, i + 'a'));
+                minFreq[i]--;
+            }
+        }
+
+        return result;
+    }
+};

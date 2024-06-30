@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+class Solution {
+public:
+    string largestOddNumber(string s) {
+        // string s=to_string(num);
+        int ind=-1;
+        for(int i=s.size()-1;i>=0;i--){
+            if(s[i]%2==1){
+                ind =i;
+                break;
+            }
+        }
+        if(ind==-1)
+        return "";
+        else{
+            string str="";
+            for(int i=0;i<=ind;i++){
+                str+=s[i];
+
+            }
+            return str;
+        } 
+        
+    }
+};

@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& nums, int k, int t) {
+        int c=0;
+        int sum=0;
+        for(int i=0;i<k;i++) {
+            sum+= nums[i];
+        }
+
+        if((sum/k)>=t)
+        c++;
+
+        int n=nums.size(),st=0;
+        for(int i=k;i<n;i++) {
+            sum+= nums[i];
+            sum-=nums[i-k];
+            int avg=(sum/k);
+            if(avg>=t)
+            c++;
+        }
+        return c;
+    }
+}; 

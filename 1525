@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+int numSplits(string s) {
+    int n = s.size();
+    
+    // Prefix array to store the count of unique characters from the beginning of the string
+    vector<int> prefixCount(n, 0);
+    set<char> uniqueChars;
+
+    for (int i = 0; i < n; i++) {
+        uniqueChars.insert(s[i]);
+        prefixCount[i] = uniqueChars.size();
+    }
+
+    // Suffix array to store the count of unique characters from the end of the string
+    vector<int> suffixCount(n, 0);
+    uniqueChars.clear();
+
+    for (int i = n - 1; i > 0; i--) {
+        uniqueChars.insert(s[i]);
+        suffixCount[i - 1] = uniqueChars.size();
+    }
+
+    // Count the number of splits
+    int ans = 0;
+    for (int i = 0; i < n - 1; i++) {
+        if (prefixCount[i] == suffixCount[i]) {
+            ans++;
+        }
+    }
+
+    return ans;
+}
+
+
+
+};

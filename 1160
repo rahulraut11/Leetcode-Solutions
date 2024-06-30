@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+    vector<vector<int>> v(words.size(), vector<int>(26, 0));
+
+// Count the frequency of each character in each word and store it in the 2D vector 'v'
+for (int i = 0; i < words.size(); i++) {
+    for (int j = 0; j < words[i].size(); j++) {
+        v[i][words[i][j] - 'a']++;
+    }
+}
+
+// Count the frequency of characters in 'chars'
+vector<int> hsh(26, 0);
+for (int i = 0; i < chars.size(); i++) {
+    hsh[chars[i] - 'a']++;
+}
+
+int ans = 0;
+
+// Check if each word can be formed using characters from 'chars'
+for (int i = 0; i < v.size(); i++) {
+    int c = 0;
+    for (int j = 0; j < 26; j++) {
+        if (v[i][j] > hsh[j])
+            c++;
+    }
+    if (c == 0) {
+        ans += words[i].size();
+    }
+}
+
+return ans;
+    }
+};

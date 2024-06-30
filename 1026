@@ -1,0 +1,70 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+void inorder(TreeNode* root,vector<int>&v){
+    if(root==NULL)
+    return ;
+    inorder(root->left,v);
+    v.push_back(root->val);
+    inorder(root->right,v); 
+}
+
+void  subgraph(TreeNode* root,vector<pair<int,vector<int>>>&mp){
+    // vector<int>v;
+    if(root==NULL)
+    return ;
+subgraph(root->left,mp);
+vector<int>v;
+
+    inorder(root,v);
+    if(v.size()>0)
+    mp.push_back({root->val,v});
+
+    subgraph(root->right,mp);
+
+}
+    int maxAncestorDiff(TreeNode* root) {
+       
+// map<int,vector<int>>&mp;
+vector<pair<int,vector<int>>>mp;
+vector<int>ans;
+subgraph(root,mp);
+
+// for(auto i:mp){
+//     int a=i.first;
+//     cout<<"a is"<<a<<endl;
+//     vector<int>v=i.second;
+//  for(auto j:v)
+//  cout<<j<<" ";
+//  cout<<endl;
+
+
+// }
+for(auto i:mp){
+    int a=i.first;
+    vector<int>v=i.second;
+
+    if(v.size()>1){
+            sort(v.begin(),v.end());
+
+        int a1=abs(a-v[v.size()-1]);
+        int b1=abs(a-v[0]);
+        int mx=max({a1,b1});
+        ans.push_back(mx);
+    }
+}
+
+return *max_element(ans.begin(),ans.end());
+        
+    }
+};

@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string destCity(vector<vector<string>>& paths) {
+        unordered_map<string,int>indeg,outdeg;
+        // mp
+        vector<string>node;
+        set<string>s;
+        for(int i=0;i<paths.size();i++){
+            vector<string> v=paths[i];
+            indeg[v[1]]++;
+            outdeg[v[0]]++;
+            node.push_back(v[1]);
+            node.push_back(v[0]);
+
+
+        }
+
+        for(int i=0;i<node.size();i++){
+            s.insert(node[i]);
+        }
+        for(auto i:s){
+            if(!outdeg[i])
+            return i;
+        }
+        
+        return 0;
+    }
+};

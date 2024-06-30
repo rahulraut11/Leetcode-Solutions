@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int countStudents(vector<int>& stu, vector<int>& san) {
+        int i=0;
+        int c=0;
+        reverse(san.begin(),san.end());
+        while(san.size()>0){
+            if(stu[0]==san.back()){
+                san.pop_back();
+                stu.erase(stu.begin());//index 0 hta do
+                c=0;
+            }
+            else{
+                int r=stu[0];
+                stu.erase(stu.begin()) ;
+                stu.push_back(r);
+                c++;
+            }
+            if(c==stu.size())
+            break;
+
+
+        }
+        return stu.size();
+    }
+
+
+};

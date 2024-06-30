@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<string> buildArray(vector<int>& target, int n) {
+        // int k=1;
+        vector<string> v;
+        int mx=*max_element(target.begin(),target.end());
+        vector<int> hsh(mx,0);
+        // int hsh[mx]={0};
+        for(int i=0;i<target.size();i++){
+            hsh[target[i]-1]++;
+         }
+
+for(int i:hsh)
+cout<<i<<" ";
+
+         for(int i=0;i<mx;i++){
+             if(hsh[i]>0){
+                 v.push_back("Push");
+             }
+             else if(hsh[i]==0){
+                 v.push_back("Push");
+                 v.push_back("Pop");
+             }
+         }
+         return v;
+
+        
+    }
+};

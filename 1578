@@ -1,0 +1,62 @@
+class Solution {
+public:
+//     int minCost(string colors, vector<int>& neededTime) {
+//         char x='*';
+//         int k=0;
+//         vector<vector<int>>v;
+//         for(int i=0;i<colors.size();i++){
+//             if(colors[i]!=x){
+//                 x=colors[i];
+//                 k++;
+//                 // v[k].push_back(i);k++;
+
+
+//             }
+//             else{
+//                 v[k].push_back(neededTime[i]);
+
+
+//             }
+//         }
+// int ans=0;
+//         for(int i=0;i<v.size();i++){
+//         vector<int> w=v[i];
+//         sort(w.begin(),w.end());
+//         // if(w.size())
+//         for(int k=0;k<w.size()-1;k++){
+//             ans+=w[k];
+//         }
+//         }
+
+// return ans;
+        
+//     }
+
+
+
+int minCost(std::string colors, std::vector<int>& neededTime) {
+    char x = '*';
+    int k = 0;
+    std::vector<std::vector<int>> v;
+
+    for (int i = 0; i < colors.size(); ++i) {
+        if (colors[i] != x) {
+            x = colors[i];
+            k++;
+            v.push_back(std::vector<int>());  // Initialize the vector for the new color
+        }
+        v[k - 1].push_back(neededTime[i]);  // Add the neededTime to the last color group
+    }
+
+    int ans = 0;
+    for (int i = 0; i < v.size(); ++i) {
+        std::vector<int>& w = v[i];
+        sort(w.begin(), w.end());
+        for (int j = 0; j < w.size() - 1; ++j) {
+            ans += w[j];
+        }
+    }
+
+    return ans;
+}
+};

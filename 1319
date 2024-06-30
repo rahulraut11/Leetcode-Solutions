@@ -1,0 +1,75 @@
+class Solution {
+public:
+//..........................  365 ..................................
+//sbse phle saare connected components nikale aur unke vertices aur edges
+//min hume vertixes-1 edges cahiye to jis coponent me jyada hi unke extra le lo
+// agr n disconnected comp hia to n-1 edges chaiye unhe connect krne ke lie
+// connect krne ke lie hume ye bhi dekhna hoga ki kisi compnent me vertices-1 se kam edges to nhi hai agr hai to wo edges bhi hume chaiye
+void DFS(int node, vector<vector<int>>& graph, vector<bool>& visited, int& vertices, int& edges) {
+    visited[node] = true;
+    vertices++; // Increment vertex count for the current component
+
+    for (int neighbor : graph[node]) {
+        edges++; // Increment edge count for every edge encountered
+        if (!visited[neighbor]) {
+            DFS(neighbor, graph, visited, vertices, edges);
+        }
+    }
+}
+
+vector<pair<int, int>> findComponentsInfo(vector<vector<int>>& graph) {
+    int n = graph.size(); // Number of nodes
+    vector<pair<int, int>> componentsInfo; // Stores (vertices, edges) for each connected component
+    vector<bool> visited(n, false); // Track visited nodes
+
+    // Iterate through all nodes in the graph
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            int vertices = 0; // Initialize vertex count for current component
+            int edges = 0; // Initialize edge count for current component
+            DFS(i, graph, visited, vertices, edges);
+            // Store (vertices, edges) count for current component
+            componentsInfo.push_back({vertices, edges / 2}); // Divide by 2 since each edge is counted twice
+        }
+    }
+
+    return componentsInfo;
+}
+
+int makeConnected(int n, vector<vector<int>>& c) {
+    vector<vector<int>> ar(n); // Adjacency list
+    vector<int> vis(n, 0); // Visited array
+
+    // Constructing adjacency list
+    for (auto i : c) {
+        int a = i[0];
+        int b = i[1];
+        ar[a].push_back(b);
+        ar[b].push_back(a);
+    }
+
+    // Get components information
+    vector<pair<int, int>> ans = findComponentsInfo(ar);
+    int comp = ans.size();
+    int want = comp - 1;
+    int take = 0;
+
+    // Debug print components information
+    for (int i = 0; i < ans.size(); ++i) {
+    }
+
+    // Calculate additional edges needed or edges that can be reused
+    for (auto i : ans) {
+        if (i.first <= (i.second + 1)) {
+            take += ((i.second + 1) - i.first);
+        }
+        //  else {
+        //     want += abs(i.second + 1 - i.first);
+        // }
+    }
+    if (take >= want)
+        return want;
+    return -1;
+}
+
+};

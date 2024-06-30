@@ -1,0 +1,32 @@
+class Solution {
+public:
+// vector<int> counting(vector<int>&arr){
+//     int n=arr.size();
+//    vector<int>brr(n,0);
+//     int mx = *max_element(arr.begin(), arr.end());
+//     vector<int> crr(mx + 1,0);
+//     for (int i = 0; i < n; i++) {
+//         crr[arr[i]]++;
+//     }
+//     for(int i=0;i<mx;i++){
+//         crr[i+1]+=crr[i];
+//     }
+//     int val = mx;
+//     for (int i = n - 1; i >= 0; i--) {
+//         brr[crr[arr[i]]-1]=arr[i];
+//         crr[arr[i]]--;
+           
+//     }
+//     return brr;
+// }
+    int heightChecker(vector<int>& h) {
+        vector<int>b=h;
+        sort(b.begin(),b.end());
+int c=0;
+        for(int i=0;i<b.size();i++){
+            if(h[i]!=b[i])
+            c++;
+        }
+        return c;
+    }
+};

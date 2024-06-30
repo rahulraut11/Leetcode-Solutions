@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string makeGood(string s) {
+       
+        int c=1;
+        while(c==1){
+            int i=0;
+            string p="";
+            int t=0;
+            while(i<s.size()){
+                if(  (s[i]==(s[i+1]+'a'-'A')) || (s[i+1]==(s[i]+'a'-'A')) ){
+                    i+=2;
+                    t++;
+                }
+                else{
+p+=s[i];
+i++;
+                }
+            }
+            s=p;
+            if(t==0){
+                c=0;
+            }
+        }
+        return s;
+    }
+};

@@ -1,0 +1,118 @@
+// class Solution {
+// public:
+//     int countTriplets(vector<int>& arr1) {
+// int n=arr1.size();
+
+//         vector<vector<int>>arr(n,vector<int>(31,0));
+//         for(int i=0;i<n;i++){
+//             int p=arr1[i];
+//             for(int j=0;j<=31;j++){
+//                 if(arr1[i]&(1<<j))
+//                 arr[i][j]=1;
+//             }
+//         }
+//         int c=0;
+
+// for(int i=0;i<31;i++){
+//     int sum=0;
+//         for(int j=0;j<n;j++){
+//             sum+=arr[j][i];
+//             arr[j][i]=sum;
+
+
+//         }
+// }
+
+
+
+// for(int i=0;i<n;i++){
+//     for(int j=i;j<n;j++){
+//         for(int k=j;k<n;k++){
+
+//             if(i==0){
+//                 int ans=0;
+//                 int ans2=0;
+//                 vector<int>p=arr[j-1];
+//                 for(int l=0;l<31;l++){
+//                     if(p[l]%2==1)
+//                         ans+=pow(2,i);
+//                     }
+
+
+//                     vector<int>p1=arr[k];
+//                     vector<int>p2=arr[j-1];
+//                     for(int l=0;l<31;l++){
+//                         p2[l]=p2[l]-p1[l];
+//                     }
+//                     for(int l=0;l<31;l++){
+//                     if(p2[l]%2==1)
+//                         ans2+=pow(2,i);
+//                     }
+
+//                     if(ans==ans2)
+//                     c++;
+
+//             }
+//             else{
+
+//                 vector<int>p1=arr[i-1];
+//                 vector<int>p2=arr[j-1];
+//                 vector<int>p3=arr[k];
+
+//                 int sum1=0;
+//                 vector<int>p22=p2;
+//                 for(int l=0;l<31;l++){
+//                     p22[l]=p22[l]-p1[l];
+//                 }
+//                 for(int l=0;l<31;l++){
+//                     if(p22[l]%2==1)
+//                     sum1+=pow(2,i);
+//                 }
+//                 int sum2=0;
+//                 for(int l=0;l<31;l++){
+//                     p3[l]=p3[l]-p2[l];
+//                 }
+//                 for(int l=0;l<31;l++){
+//                     if(p3[l]%2==1)
+//                     sum2+=pow(2,i);
+//                 }
+//                 if(sum1==sum2)
+//                 c++;
+
+
+//             }
+
+//         }
+//     }
+// }
+// return c;
+// }
+
+// };
+class Solution {
+public:
+    int countTriplets(vector<int>& arr) {
+        int n = arr.size();
+        vector<int> prefixXOR(n + 1, 0);
+
+        // Compute prefix XOR
+        for (int i = 0; i < n; ++i) {
+            prefixXOR[i + 1] = prefixXOR[i] ^ arr[i];
+        }
+
+        int count = 0;
+
+        // Iterate over all pairs (i, j) and find k such that prefixXOR[i] == prefixXOR[k + 1]
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                for (int k = j; k < n; ++k) {
+                    if (prefixXOR[i] == prefixXOR[k + 1]) {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
+};

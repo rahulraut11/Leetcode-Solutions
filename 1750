@@ -1,0 +1,83 @@
+class Solution {
+public:
+
+    int minimumLength(string s) {
+vector<char>v1,v2;
+vector<int>count;
+char a=s[0];
+v1.push_back(a);
+for(int i=0;i<s.size();i++){
+    if(s[i]!=a){
+        v1.push_back(s[i]);
+        a=s[i];
+    }
+
+}
+char b=s[s.size()-1];
+v2.push_back(b);
+for(int i=s.size()-1;i>=0;i--){
+    if(s[i]!=b){
+        v2.push_back(s[i]);
+        b=s[i];
+    }
+
+}
+for(auto i:v1)
+cout<<i<<" ";
+cout<<endl;
+for(auto i:v2)
+cout<<i<<" ";
+int ans=0;
+char chr1=s[0];
+int d=0;
+for(int i=0;i<s.size();i++){
+    if(s[i]==chr1)
+    d++;
+    else{
+       count.push_back(d);
+        d=1;
+        chr1=s[i];
+
+    }
+
+
+}
+if(d>0){
+        count.push_back(d);
+}
+int flag1=-1;
+int flag2=-1;
+for(int i=0;i<v1.size();i++){
+    if(v1[i]!=v2[i]){
+        flag1=i;
+        break;
+        // ans+=count[i];
+    }
+}
+for(int i=v1.size()-1;i>=0;i--){
+    if(v1[i]!=v2[i]){
+        flag2=i;
+        break;
+        // ans+=count[i];
+    }
+}
+if(flag1==-1 || flag2==-1){
+if(count.size()%2==0)
+    return 0;
+    else{
+        int r=count[count.size()/2];
+        if(r==1)
+        return 1;
+        else return 0;
+    }
+// return count[count.size()/2];
+}
+
+// cout<<flag1<<" "<<flag2<<endl;
+for(int i=flag1;i<=flag2;i++)
+ans+=count[i];
+
+return ans;
+        
+    }
+};

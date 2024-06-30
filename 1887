@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int reductionOperations(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int p=nums[0];
+        int c=1;
+        vector<int> v;
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]==p)
+            c++;
+            else{
+                v.push_back(c);
+                c=1;
+                p=nums[i];
+            }
+        }
+        v.push_back(c);
+        int sum=0;
+        for(int i=1;i<v.size();i++){
+            sum+=(v[i]*i);
+        }
+        return sum;
+
+        
+    }
+};
