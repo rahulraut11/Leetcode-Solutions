@@ -1,0 +1,87 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+static bool comp(string &s1,string &s2){
+        int r=min(s1.size(),s2.size());
+        for(int i=0;i<r;i++){
+            if(s1[i]!=s2[i])
+            return s1[i]<s2[i];
+        }
+        return s1.size()<s2.size();
+}
+void find(TreeNode* root, vector<int> path, vector<vector<int>>& ans) {
+    if (root == nullptr)
+        return;
+
+    path.push_back(root->val);
+
+    if (root->left == nullptr && root->right == nullptr) {
+        ans.push_back(path);
+        return;
+    }
+
+    if (root->left != nullptr)
+        find(root->left, path, ans);
+
+    if (root->right != nullptr)
+        find(root->right, path, ans);
+
+    // Pop the last element from path after visiting both left and right subtrees
+    path.pop_back();
+}
+// void find(TreeNode* root,vector<vector<int>>&ans,vector<int>&s){
+//     if(root==NULL)
+//      return;
+//      s.push_back(root->val);
+
+//      if (root->left ==NULL && root->right == NULL) {
+//         ans.push_back(s);
+//         return;
+//     }
+
+
+//      find(root->left,ans,s);
+//      find(root->right,ans,s);
+
+//      s.pop_back();
+// }
+    string smallestFromLeaf(TreeNode* root) {
+        vector<int>s;
+        vector<vector<int>>ans;
+        find(root,s,ans);
+vector<string>str;
+        for(int i=0;i<ans.size();i++){
+            // vector<int>sa=ans[i];
+            reverse(ans[i].begin(),ans[i].end());
+            string p="";
+            for(int j=0;j<ans[i].size();j++){
+                p+=char(ans[i][j]+'a');
+
+            }
+            str.push_back(p);
+        }
+        for(auto i:ans)
+        {
+            for(auto j:i)
+            cout<<j<<" ";
+            cout<<endl;
+        }
+for(auto k:str)
+cout<<k<<" ";
+cout<<endl;
+
+        sort(str.begin(),str.end(),comp);
+        return str[0];
+        
+    }
+};
